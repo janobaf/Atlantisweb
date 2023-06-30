@@ -7,11 +7,11 @@ ALLOWED_HOSTS = ["*"]
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'heroku_c55134a282cac58',
-        'USER':'b5fd4836081423',
-        'PASSWORD':'24ed6d26',
-        'HOST': 'us-cdbr-east-06.cleardb.net',
+        'ENGINE': 'mssql',
+        'NAME': 'dz41pi8qa53v9ws',
+        'USER':'u1w1vobg5sn13tf',
+        'PASSWORD':'u#8F!YY#&94PxA90m#sTkCWMC',
+        'HOST': 'eu-az-sql-serv1.database.windows.net',
         
        # 'OPTIONS': {
         #    'driver': 'ODBC Driver 17 for SQL Server',
