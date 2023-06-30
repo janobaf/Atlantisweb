@@ -1,0 +1,202 @@
+{% load static  %}
+{% include 'menu.html' %}
+
+{% block body %}
+
+
+    <section class="pc-container">
+        <div class="pcoded-content">
+
+            <div class="col-sm-2">
+				<div class="card">
+					<div class="card-body">
+						<div id="exampleModalCenter" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalCenterTitle">Crear Mesa</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									</div>
+                                    <form action="{% url 'mesas_app:addmesas' %}" method="post"> {% csrf_token %}
+
+                                        <div class="modal-body">
+                                            <p>Numero mesa :</p>
+                                                <input class="form-control" type="number" id="demo-number-input" name="numero_mesa">
+
+                                            
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn  btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn  btn-primary">Save changes</button>
+                                        </div>
+                                    </form>
+                                {% if messages %}
+                                <ul class="messages">
+                                  {% for message in messages %}
+                                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                  {% endfor %}
+                                </ul>
+                              {% endif %}
+                                
+
+
+								</div>
+							</div>
+						</div>
+						<button type="button" class="btn  btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Crear Mesa</button>
+					</div>
+					
+				</div>
+			</div>
+
+
+            <div class="row">
+                {% for e  in mesa  %}
+
+                <!-- support-section start -->
+                <div class="col-xl-3 col-md-4">
+                    <div class="card flat-card">
+                        <div class="row-table">
+                            <div class="col-sm-2 card-body br">
+                                <div class="row">
+                                   
+                                    <div class="col-sm-2 text-md-center">
+                                    
+                                        <img src="{% static 'img/mesas.png' %}" alt="mesas" style="height: 100px; width: 100px;"> 
+                                       
+                                    </div>
+                                    <div class="col-sm-6 text-md-right" style="left: 80px;">
+                                        <p>numero de mesa : {{e.numero_mesa}}</p>
+                                        
+                                        <p>
+                                            Editar y eliminar: 
+                                            <button type="button" data-toggle="modal" data-target="#editar-eliminar-{{ e.numero_mesa }}" data-feather="edit" style="padding: 0; border: none; background: none;"></button>
+
+                                                                                            
+                                                <!-- Modal -->
+                                                <div id="editar-eliminar-{{ e.numero_mesa }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editar-eliminar" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="editar-eliminar">Eliminar </h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <form action="{% url 'mesas_app:delete' pk=e.numero_mesa %}" method="post">
+                                                                    {% csrf_token %}
+                                                                    <button class="btn btn-secondary">Eliminar</button>
+                                                                </form>
+                                                                 <button type="button" data-toggle="modal" data-target="#editar-{{ e.numero_mesa }}"  class="btn btn-secondary"> editar</button>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- 
+                                                <div id="editar-{{ e.numero_mesa }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="editar-eliminar"> Editar</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                     
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                
+                                                                <form action="{% url 'mesas_app:update' pk=e.numero_mesa %}" method="post">
+                                                                    {% csrf_token %}
+                                                                    <p>
+                                                                        <input class="form-control" type="number" id="demo-number-input" name="mesaupdate">
+    
+                                                                   </p>
+                                                                    <button class="btn btn-secondary">update</button>
+                                                                </form>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>-->
+                                        </p>
+                                        <p>ocupado:
+                                            {% if e.ocupado %}
+                                            <i data-feather="circle"  style="color: red;"></i> 
+                                            {% else %} 
+                                            <i data-feather="circle" style="color: black;"></i> 
+                                            {% endif %}
+                                        </p>
+                                        <form action="{% url 'pedidos_app:addpedido' e.numero_mesa %}" method="post"> {% csrf_token %}
+
+                                            <p >Ver pedido :  
+                                                    
+                                                    <button type="submit" style="padding: 0; border: none; background: none;">                                                    
+                                                <i data-feather="plus"></i>
+                                                    </button>
+                                                
+                                            </p>
+                                        </form>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
+
+        <div class="col-sm-12">
+            <div class="card">
+                
+                <div class="card-body">
+                
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <div class="pagination">
+
+                            <span class="step-links">
+                                {% if page_obj.has_previous %}
+
+
+                                <a href="?page=1"  >&laquo; first</a>
+                                <a href="?page={{ page_obj.previous_page_number }}" >previous</a>
+                            
+                                {% endif %}
+
+                                <span class="current">
+                                     Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                </span>
+                        |
+                        {% if page_obj.has_next %}
+
+                                    <a href="?page={{ page_obj.next_page_number }}" >next</a>
+                                    <a href="?page={{ page_obj.paginator.num_pages }}" >last &raquo;</a>
+                            {% endif %}
+
+                        </span>
+                    </div>
+
+                        </ul>
+                    </nav>
+                
+                </div>
+            </div>
+        </div>
+       
+    </section>
+    
+    
+       
+{% endblock body %}
+

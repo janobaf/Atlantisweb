@@ -1,0 +1,479 @@
+{% load static  %}
+{% include 'menu.html' %}
+
+{% block body %}
+
+<!-- [ Main Content ] start -->
+<span >COD: {{idpedido}}</span>
+
+{% if idpedido %}
+<div class="pc-container">
+    <div class="pcoded-content">
+         <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">Pedido  de </h5>
+                        </div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item">{{pedidos.user.username}}</li>
+                            <li class="breadcrumb-item">Numero de mesa </li>
+                            <li class="breadcrumb-item">{{pedidos.mesa.numero_mesa}}</li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- support-section start -->
+            <div class="col-xl-6 col-md-12">
+                <div class="card flat-card">
+                    <div class="row-table">
+                        
+                        <div class="col-sm-6 card-body br">
+                            
+                            <div class="row">
+                               
+                                <div class="col-sm-12">
+                                    <i class="icon feather icon-delete text-primary mb-1 d-blockz">Regresar </i>
+                                </div>
+                                <div class="col-sm-12 text-md-center">
+        
+                                    <span>
+                                        
+                                        <div class="col-sm-12   text-md-center">  
+                                            <a href="{% url 'mesas_app:list-mesas' %}"><button class="btn btn-icon btn-outline-warning">Regresar </button  ></a>
+                                            
+                                        </div>
+                                    </span> 
+                                </div>
+                            </div>
+                        </div>
+                 
+                        <div class="col-sm-6 card-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <i class="icon feather icon-delete text-primary mb-1 d-blockz">Eliminar Plato </i>
+                                </div>
+                                <div class="col-sm-12 text-md-center">
+                                    <h5>Ingresar el id del plato</h5>
+                                    <span>
+                                       
+                                        <div class="col-sm-12   text-md-center">  
+                                            <form action="{% url 'pedidos_app:delete_pedido_plato' idpedido   %}" method="post"> {% csrf_token %}
+
+                                                 <input type="number" class="form-control" name="id" placeholder="id plato">
+
+                                                <button class="btn btn-icon btn-outline-warning">Eliminar </button>
+
+                                            </form>
+                                        </div>
+                                    </span> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="row">
+                    <div class="col-xl-12 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row pb-8">
+                                    <div class="pro-scroll" style="height:405px;width: 100%;position:relative; text-align: center;">
+                                        <div class="card-body p-0"> 
+                                            <div class="table-responsive">
+                                                <table class="table table-hover m-b-0">
+                                                    <thead style="display: block;" >
+                                                        <tr>
+                                                            <th style="width: 230px; ">id</th>
+
+                                                            <th style="width: 230px; ">Nombre</th>
+                                                            <th style="width: 300px; ">cantidad</th>
+
+                                                            <th style="width: 380px; ">Precio</th>
+            
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody style=" height: 350px;      display: block;
+                                                    overflow-y: auto;    
+                                                    overflow-x: hidden;">
+                                                        
+                                                        {% for e in plato_pedido  %}
+                                                        <tr>
+                                                            <td style="width: 5%; ">
+                                                                {{e.id}}
+
+                                                            </td>
+                                                            <td style="width: 10%; ">
+                                                                {{e.plato.Nombre_plato}}
+
+                                                            </td>
+                                                            <td style="width: 10%; ">
+                                                                {{e.cantidad}}
+                                                            </td>
+                                                            <td style="width: 10%; ">
+                                                                {{e.plato.precio_plato}}
+                                                            </td>
+                                                            
+                                                        </tr>
+                                                        {% endfor %}
+                                                            
+                                                        
+                                                            
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="card prod-p-card bg-primary background-pattern-white">
+                        <div class="card-body" >
+                            <div class="row align-items-center m-b-0" >
+                               
+                                <div class="col" style="text-align: right;">
+                                    <h6 class="m-b-1 text-white">Total de  pedidos </h6>
+                                    <h3 class="m-b-0 text-white"> {{plato_pedido.count}}</h3>
+                                    
+                                </div>
+                                
+                                <div class="col" style="text-align: right;">
+                                    <h6 class="m-b-5 text-white">Costo total</h6>
+                                    <h3 class="m-b-0 text-white">{{pedidos.precio_total}}</h3>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+      
+
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Platos</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row pb-2">
+                            <div class="col-auto m-b-10">
+                                <form  method="GET">  {% csrf_token %}
+                                    <div >
+                                    <select name="categoria" id="categoria">
+                                        <option value="0">Criollos</option>
+                                        <option value="1">Ceviches</option>
+                                        <option value="2">Especialidades</option>
+                                        <option value="3">Chicharrones</option>
+                                        <option value="4">Parrillas</option>
+                                        <option value="5">postres</option>
+                                        <option value="6">Gaseosas</option>
+                                        <option value="7">TAPERS</option>
+                                        <option value="8">Todo</option>
+                            
+                                    </select>
+                                      <input type="submit" value="Buscar">
+                                    </div>
+                                  </form>
+                                <div class="col-xl-12 col-md-12">
+
+                                  <div class="card">
+                                        <div class="card-header">
+
+                                        <h5>Lista de platos &nbsp; categoria :{{categoria}}
+                                                    {% for e  in plato %}                     
+                                                        {% if e.categoria in '0' %}
+                                                            Criollos
+                                                        {% elif e.categoria in '1' %}
+                                                            Ceviches
+                                                        {% elif e.categoria in '2' %}
+                                                            Especialidades
+                                                        {% elif e.categoria in '3' %}
+                                                            Chicharrones
+                                                        {% elif e.categoria in '4'%}
+                                                            Parrillas
+                                                        {% elif e.categoria in '5'%}
+                                                            postres
+                                                        {% elif e.categoria in '6'%}
+                                                            Gaseosas
+                                                        {% elif e.categoria in '7'%}
+                                                            Tapers
+                                                        {% endif %}
+                                                    
+                                                    {% endfor %}        
+                                            </h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row pb-6">
+                                                
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Nombre</th>
+                                                              
+                                                                <th>Precio</th>
+                                                                <th>Imagen</th>
+                                                                <th></th>
+                                                                    
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for e in  plato%}
+                                                        
+                                                            <tr>
+                                        
+                                                                <td>{{e.Nombre_plato}}</td>
+                                                            
+                                                             
+                                                                <td>{{e.precio_plato}}</td>
+                                                                <td>
+                                        
+                                                                    <img src="{{e.imagen.url}}" alt="user-image" class="user-avtar" style="width: 350px; height: 150px;">
+                                        
+                                                                </td>
+                                                        
+                                                                <td>
+                                                                    <form action="{% url 'pedidos_app:pedidos-add-platos'  pk=e.id idpedido=idpedido     %}" method="post"> {% csrf_token %}
+                                                                         <input type="number" class="form-control" name="cantidad" placeholder="cantidad">
+                                                                        
+                                                                        <a type="submit"><button class="btn btn-icon btn-outline-warning">Regresar </button  ></a>
+
+                                                                    </form>
+                                                                    
+                                                                </td>
+                                                                    
+                                        
+                                                            </tr>
+                                                            {% endfor %}
+                                                            
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                </div>     
+
+
+                            </div>
+                
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+
+
+    
+    </div>
+    
+</div>
+<div class="col-sm-12">
+    <div class="card">
+        
+        <div class="card-body">
+        
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <div class="pagination">
+
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+
+
+                        <a href="?page=1"  >&laquo; first</a>
+                        <a href="?page={{ page_obj.previous_page_number }}" >previous</a>
+                    
+                        {% endif %}
+
+                        <span class="current">
+                             Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                        </span>
+                |
+                {% if page_obj.has_next %}
+
+                            <a href="?page={{ page_obj.next_page_number }}" >next</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}" >last &raquo;</a>
+                    {% endif %}
+
+                </span>
+            </div>
+
+                </ul>
+            </nav>
+        
+        </div>
+    </div>
+</div>
+
+{% else %}
+<div class="col-xl-8 col-md-12">
+
+    <div class="pc-container">
+        <h1 style="text-align:center;">Listar Platos</h1>
+    
+        <form  method="GET"> 
+            <div >
+            <select name="categoria" id="categoria">
+                <option value="0">Criollos</option>
+                <option value="1">Ceviches</option>
+                <option value="2">Especialidades</option>
+                <option value="3">Chicharrones</option>
+                <option value="4">Parrillas</option>
+                <option value="5">postres</option>
+                <option value="6">Gaseosas</option>
+                <option value="7">TAPERS</option>
+                <option value="8">Todo</option>
+    
+            </select>
+         
+    
+          
+              <input type="submit" value="Buscar">
+            </div>
+          </form>
+    
+            <div class="card">
+                <div class="card-header">
+                    <h5>Lista de platos </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row pb-6">
+                    
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Categoria</th>
+                                        <th>Precio</th>
+                                        <th>Imagen</th>
+                                        {% if user.roles_usuario in 'A' %}
+                                            <th>Acciones</th>
+                                        {% endif %}
+                                            
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for e in  plato%}
+                                
+                                    <tr>
+                
+                                        <td>{{e.Nombre_plato}}</td>
+                                    
+                                            
+                                        <td>   
+                                            {% if e.categoria in '0' %}
+                                                Criollos
+                                            {% elif e.categoria in '1' %}
+                                                Ceviches
+                                            {% elif e.categoria in '2' %}
+                                                Especialidades
+                                            {% elif e.categoria in '3' %}
+                                                Chicharrones
+                                            {% elif e.categoria in '4'%}
+                                                Parrillas
+                                            {% elif e.categoria in '5'%}
+                                                postres
+                                            {% elif e.categoria in '6'%}
+                                                Gaseosas
+                                            {% elif e.categoria in '7'%}
+                                                Tapers
+                                            {% endif %}
+                                        </td>
+                                        <td>{{e.precio_plato}}</td>
+                                        <td>
+                
+                                            <img src="{{e.imagen.url}}" alt="user-image" class="user-avtar" style="width: 350px; height: 150px;">
+                
+                                        </td>
+                                        {% if user.roles_usuario in 'A' %}
+                                        <td>
+                                            <form  method="post" action="{% url 'platos_app:eliminar_plato' pk=e.id %}"> {% csrf_token %}
+                                                <button type="submit" class="btn btn-icon btn-outline-warning">Eliminar</button>
+                
+                                            </form>
+                                            <a class="pc-link"  href="{% url 'platos_app:actualizar_plato' pk=e.id %}">
+                                                <button class="btn btn-icon btn-outline-warning">Actualizar Plato</button>
+                                                 </a>
+                
+                                        </td>
+                                        {% endif %}
+                
+                                
+                
+                                    </tr>
+                                    {% endfor %}
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+      
+           
+    </div>
+    <!-- [ Main Content ] end -->
+    </div>
+    <div class="col-sm-12">
+        <div class="card">
+            
+            <div class="card-body">
+            
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <div class="pagination">
+
+                        <span class="step-links">
+                            {% if page_obj.has_previous %}
+
+
+                            <a href="?page=1"  >&laquo; first</a>
+                            <a href="?page={{ page_obj.previous_page_number }}" >previous</a>
+                        
+                            {% endif %}
+
+                            <span class="current">
+                                 Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                            </span>
+                    |
+                    {% if page_obj.has_next %}
+
+                                <a href="?page={{ page_obj.next_page_number }}" >next</a>
+                                <a href="?page={{ page_obj.paginator.num_pages }}" >last &raquo;</a>
+                        {% endif %}
+
+                    </span>
+                </div>
+
+                    </ul>
+                </nav>
+            
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+    
+
+{% endblock body %}

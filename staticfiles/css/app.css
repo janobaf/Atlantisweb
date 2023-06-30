@@ -1,0 +1,59 @@
+
+
+
+#registro_caja{
+    border: 2px solid red;
+    width: 800px;
+    height: 450px;
+    text-align:center;
+    position: absolute;
+    left: 27%;
+    top: 20%;
+}
+#resgistro_Titulo{
+    position: absolute;
+    
+    width: 500px;
+    height: 60px;
+    text-align:center;
+    font-size:40px;
+    margin-left: 35%;
+    margin-top: 5%;
+}
+
+
+.main-links {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+  }
+  .main-links li {
+    padding: 0.5rem 1rem;
+    background-color: rgb(10, 207, 197);
+  }
+  
+  .dropdown-li {
+    position: relative;
+  }
+  
+  .dropdown-li:hover .dropdown {
+    display: block;
+    opacity: 1;
+  }
+  
+  .dropdown {
+    background-color: slateblue;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    opacity: 0;
+    display: none;
+    background: red;
+  }
+  
+  .dropdown li {
+    list-style: none;
+  }

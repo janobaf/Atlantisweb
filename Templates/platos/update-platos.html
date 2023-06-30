@@ -1,0 +1,52 @@
+{% load static %}
+
+{% include 'menu.html' %}
+{% block title %}
+		Crear platos
+{% endblock title %}
+
+
+{% block body %}
+<section class="pc-container">
+    <div class="pcoded-content">
+        <!-- [ breadcrumb ] start -->
+       
+
+        <div class="card ">
+            <div class="card-header">
+                <h5>Crear platos</h5>
+            </div>
+            <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+
+                <div class="card-body">
+                
+                    <div class="form-group">
+                        <label for="demo-text-input" class="col-form-label">nombre plato</label>
+                        <input class="form-control" type="text"  id="demo-text-input" name="Nombre_plato">
+                    </div>
+                    <div class="form-group">
+                        <label for="demo-number-input" class="col-form-label">precio plato</label>
+                        <input class="form-control" type="number" id="demo-number-input" name="precio_plato">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="demo-input-file" class="col-form-label">File</label>
+                        <input class="form-control" type="file" id="demo-input-file" name="imagen">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleSelect1">Select</label>
+                        {{form.categoria}}
+                        </select>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary mr-2">guardar</button>
+                    <button class="btn btn-secondary">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+
+{% endblock body %}
