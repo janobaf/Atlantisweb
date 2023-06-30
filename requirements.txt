@@ -23,13 +23,11 @@ cycler==0.11.0
 debugpy==1.6.7
 decorator==5.1.1
 defusedxml==0.7.1
-Django==3.2.19
+Django==	4.1.3
 django-mssql-backend==2.8.1
 django-mysql==4.10.0
 executing==1.2.0
 fastjsonschema==2.17.1
-Flask==2.3.2
-Flask-Cors==3.0.10
 flatbuffers==23.5.26
 fonttools==4.39.4
 fqdn==1.5.1
@@ -56,8 +54,6 @@ kiwisolver==1.4.4
 libclang==16.0.0
 Markdown==3.4.3
 MarkupSafe==2.1.3
-matplotlib==3.7.1
-matplotlib-inline==0.1.6
 mistune==2.0.5
 ml-dtypes==0.1.0
 mssql-django==1.2
@@ -67,14 +63,10 @@ nbclient==0.8.0
 nbconvert==7.4.0
 nbformat==5.9.0
 nest-asyncio==1.5.6
-notebook==6.5.4
-notebook_shim==0.2.3
-numpy==1.23.5
 oauthlib==3.2.2
 opt-einsum==3.3.0
 overrides==7.3.1
 packaging==23.1
-pandas==2.0.2
 pandocfilters==1.5.0
 parso==0.8.3
 pickleshare==0.7.5
